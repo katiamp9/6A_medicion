@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn -B test'
+                sh 'mvn test'
             }
             post {
                 always {
@@ -19,10 +19,9 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Deliver') { 
             steps {
-                sh 'java -cp target/classes App 6 0.2 15 0.45 4 0.495'
-                archiveArtifacts artifacts: 'resultados.txt, target/*.jar', fingerprint: true
+                sh './jenkins/scripts/deliver.sh' 
             }
         }
     }
